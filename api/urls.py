@@ -10,5 +10,5 @@ router.register(r'posts', views.PostViewSet, basename="posts")
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('token/', obtain_auth_token)
+    path('auth-token/', obtain_auth_token)
 ]

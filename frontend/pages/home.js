@@ -1,7 +1,26 @@
+import Image from "next/image";
+
 import {Container, Grid, Paper, Box, Typography} from "@mui/material";
+
+import MainImg from '../lib/img/MainImage.png'
 
 import Navbar from "../components/navbar";
 
+const Breaker = () => {
+    return (
+        <Container fullWidth sx={{flexGrow: 1}}>
+            <Box sx={{
+                height: '5px',
+                width: '100%',
+                borderRadius: '10px',
+                marginTop: 6,
+                marginBottom: 6,
+                backgroundColor: 'rgb(33, 144, 235)'
+            }}>
+            </Box>
+        </Container>
+    );
+}
 
 const Page = () => {
     return (
@@ -9,6 +28,22 @@ const Page = () => {
             <Box>
                 <Navbar/>
             </Box>
+            <Box>
+                <Box sx={{
+                    backgroundImage: `url(${MainImg.src})`,
+                    backgroundSize: 'cover',
+                    position: 'relative',
+                    flexGrow: 1,
+                    mt: 12,
+                    width: '100%',
+                    height: '500px',
+                    textAlign: 'center',
+                    borderRadius: '10px',
+                    opacity: 0.7
+                }}>
+                </Box>
+            </Box>
+            <Breaker/>
             <Box sx={{flexGrow: 1, mt: 9, p: 2}}>
                 <Grid>
                     <Typography variant='h3' sx={{fontFamily: 'Monaco', color: 'orange'}}>Welcome on our
@@ -21,7 +56,8 @@ const Page = () => {
                     </Typography>
                 </Grid>
             </Box>
-            <Box id='about' sx={{flexGrow: 1, mt: 8, backgroundColor: 'secondary.dark', borderRadius: '10px', p: 2}}>
+            <Breaker/>
+            <Box id='about' sx={{flexGrow: 1, backgroundColor: 'secondary.dark', borderRadius: '10px', p: 2}}>
                 <Grid>
                     <Typography variant='h3' sx={{fontWeight: 'bold'}}>About</Typography>
                     <Box>
@@ -76,7 +112,8 @@ const Page = () => {
                     </Box>
                 </Grid>
             </Box>
-            <Box id='contact' sx={{flexGrow: 1, mt: 8, borderRadius: '10px', p: 2}}>
+            <Breaker/>
+            <Box id='contact' sx={{flexGrow: 1, borderRadius: '10px', p: 2}}>
                 <Grid>
                     <Typography variant='h3' sx={{fontWeight: 'bold'}}>Contact</Typography>
                     <Box>

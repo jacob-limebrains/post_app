@@ -1,18 +1,16 @@
-import {ThemeProvider} from "@mui/material";
-import {CssBaseline} from "@mui/material";
+import {ThemeProvider, CssBaseline, createTheme, useTheme, Box} from "@mui/material";
 
-// import {themeLight, themeDark} from "../lib/themes";
-import {theme} from "../lib/themes";
+import {getTheme} from "../lib/themes";
 
+const darkModeTheme = createTheme(getTheme('dark'));
 
 const App = ({Component, pageProps}) => {
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={darkModeTheme}>
             <CssBaseline />
             <Component {...pageProps} />
         </ThemeProvider>
     );
 }
-
 
 export default App;

@@ -1,10 +1,12 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
+import axios from "axios";
 
 import {Box, Grid, Paper, Button, Avatar, TextField, Link} from "@mui/material";
-
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import {UserRegister} from "../api/api";
+
+import {SERVER_IP} from "../api/api";
+import Cookies from "js-cookie";
 
 
 const Register = () => {
@@ -16,6 +18,11 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [re_password, setRe_Password] = useState('');
 
+    useEffect(() => {
+        if (Cookies.get('token') !== "") {
+            router.push('/')
+        }
+    }, [Cookies.get('token')])
 
     const handleUsernameChange = e => {
         setUsername(e.target.value)
@@ -34,11 +41,20 @@ const Register = () => {
         if (password !== re_password)
             alert("Password and Re_Password must be the same")
         else {
-            const status = UserRegister(username, email, password);
-            if (status === 201) {
-                alert("Successed registration");
-                router.push('/')
-            }
+            axios.post(`${SERVER_IP}/api/users/`, {
+                username,
+                email,
+                password
+            }).then(response => {
+                alert("Create new account " + response.status);
+            }).catch(error => {
+                // console.log(error.response.data);
+                const errors = [];
+                for (const [err, value] of Object.entries(error.response.data)) {
+                    errors.push(value.toString());
+                }
+                alert(errors.join("\n"));
+            })
         }
     }
 
