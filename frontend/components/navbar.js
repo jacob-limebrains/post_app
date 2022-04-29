@@ -7,9 +7,7 @@ import {
     Toolbar,
     IconButton,
     Menu,
-    Avatar,
     Button,
-    Tooltip,
     MenuItem,
     Link
 } from "@mui/material";
@@ -17,8 +15,6 @@ import {useRouter} from 'next/router'
 
 import {amber} from '@mui/material/colors'
 import MenuIcon from '@mui/icons-material/Menu';
-
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
 
@@ -54,7 +50,6 @@ const Navbar = () => {
                     >
                         Jakies LOGO
                     </Typography>
-
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
                             size="large"
