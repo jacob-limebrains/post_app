@@ -1,66 +1,58 @@
 import {Box, Container, Grid, Typography, Card, CardContent} from '@mui/material'
 import Cookies from "js-cookie";
 
-import MainNavbar from "../../components/main_navbar";
-import Custom404 from "../404";
+import WrongUserData from "../wrong_data";
 import Layout from "../../components/layouts/layout";
 
 import {articles, news} from "../../lib/article_nodb";
 
 const Article = ({title, description, author}) => {
     return (
-        <Box>
-            <CardContent sx={{flexGrow: 1}}>
-                <Typography variant='h2' color="text.secondary" gutterBottom>
-                    {title}
-                </Typography>
-                <Typography variant="h5" component="div">
-                    {description}
-                </Typography>
-                <Typography sx={{mb: 1.5}} color="text.secondary">
-                    adjective
-                </Typography>
-                <Typography variant="body2">
-                    Author: {author}
-                </Typography>
-            </CardContent>
+        <Box sx={{
+            maxWidth: '30%',
+            minHeight: 350,
+            maxHeight: 720,
+            flexGrow: 1,
+            backgroundColor: 'secondary.dark',
+            m: {xl: 2, lg: 3, md: 2, sm: 3, xs: 5},
+            width: {xl: '20%', lg: '30%', md: '40%', sm: '60%'},
+            borderRadius: '20px', float: 'left'
+        }}>
+
+            <Typography variant='h4' sx={{mt: 6}} color="text.secondary" gutterBottom>
+                {title}
+            </Typography>
+            <Typography variant="body" component="div">
+                {description}
+            </Typography>
+            <Typography sx={{mb: 1.5}} color="text.secondary">
+                adjective
+            </Typography>
+            <Typography variant="body2">
+                Author: {author}
+            </Typography>
         </Box>
     );
 
 }
 
 const Home = () => {
-    if (Cookies.get('username')) {
+    if (Cookies.get('username') && (Cookies.get('token') === Cookies.get('auth'))) {
         return (
             <Layout>
                 <Container sx={{mt: 20, width: '100%', flexGrow: 1}} align='center'>
-                    <MainNavbar/>
-                    <Box sx={{
-                        display: {xl: 'inline-block', md: 'inline-block', sm: 'block'},
-                        backgroundColor: 'secondary.dark',
-                        width: {xl: '40%', sm: '60%'}
-                    }}>
-                        <Typography variant='h3'>Articles</Typography>
+                    <Typography variant='h3'>Articles</Typography>
+
+                    <Grid container spacing={2}>
                         {articles.map(article => <Article key={article.id} title={article.title}
                                                           description={article.description} author={article.author}/>)}
-                    </Box>
-                    <Box sx={{
-                        display: {xl: 'inline-block', md: 'inline-block', sm: 'block'},
-                        backgroundColor: 'secondary.dark',
-                        width: {xl: '40%', sm: '60%'},
-                        ml: {xl: 10, sm: 0},
-                        mt: {xl: 0, sm: 10, xs: 10}
-                    }}>
-                        <Typography variant='h3'>News</Typography>
-                        {news.map(info => <Article key={info.id} title={info.title} description={info.description}
-                                                   author={info.author}/>)}
-                    </Box>
+                    </Grid>
                 </Container>
             </Layout>
         );
     } else {
         return (
-            <Custom404/>
+            <WrongUserData/>
         )
     }
 

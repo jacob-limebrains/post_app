@@ -16,6 +16,12 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
 
 
+class UserDetailsViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
+
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer

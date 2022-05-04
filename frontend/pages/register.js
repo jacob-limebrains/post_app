@@ -71,7 +71,7 @@ const Register = () => {
                         </Avatar>
                         <h2>Sign in</h2>
                     </Grid>
-                    <Grid align='center'>
+                    <Grid align='center' sx={{mt: 6}}>
                         <TextField label='Username' placeholder='username' variant='filled' fullWidth required
                                    onChange={handleUsernameChange}/>
                         <TextField label='Email' placeholder='email' variant='filled' fullWidth required
@@ -81,15 +81,12 @@ const Register = () => {
                         <TextField label='Re-Password' placeholder='re_password' variant='filled' fullWidth required
                                    onChange={handleRe_PasswordChange} type='password'/>
                     </Grid>
-                    <Grid sx={{marginTop: 3}} align='center'>
-                        <Button type='submit' variant='outlined' sx={{'&:hover': {boxShadow: `0 0 20px 20px #2196f3`}}}
+                    <Grid sx={{mt: 6}} align='center'>
+                        <Button type='submit' variant='contained' sx={{'&:hover': {boxShadow: `0 0 20px 20px #2196f3`}}}
                                 fullWidth onClick={handleUserRegister}>Sign in</Button>
                         <Box sx={{marginTop: 2}} fullWidth>Already have an account? <Link href='/login'
-                                                                                          color='primary.light'
+                                                                                          color='primary.dark'
                                                                                           sx={{marginLeft: 1}}>Login!</Link></Box>
-                        <Button variant="contained" fullWidth sx={{mt: 5}} onClick={() => router.push('/')}>Go back to
-                            main
-                            page</Button>
                     </Grid>
                 </Paper>
             </Grid>

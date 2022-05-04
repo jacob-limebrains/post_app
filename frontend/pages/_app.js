@@ -1,13 +1,17 @@
-import {ThemeProvider, CssBaseline, createTheme, useTheme, Box} from "@mui/material";
+import React, {useState} from "react";
+import {ThemeProvider, CssBaseline} from "@mui/material";
 
-import {getTheme} from "../lib/themes";
+import NavBar from "../components/navbar";
 
-const darkModeTheme = createTheme(getTheme('dark'));
+import {lightTheme, darkTheme} from "../lib/themes";
 
 const App = ({Component, pageProps}) => {
+    const [darkMode, setDarkMode] = useState(true)
+
     return (
-        <ThemeProvider theme={darkModeTheme}>
-            <CssBaseline />
+        <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+            <CssBaseline/>
+            <NavBar toggleOnChange={() => setDarkMode(!darkMode)} />
             <Component {...pageProps} />
         </ThemeProvider>
     );

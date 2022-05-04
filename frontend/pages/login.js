@@ -38,6 +38,7 @@ const Login = () => {
         }).then(response => {
             for (const [err, value] of Object.entries(response.data)) {
                 Cookies.set('token', value.toString());
+                Cookies.set('auth', value.toString());
                 Cookies.set('username', username);
             }
             router.push('/main');
@@ -66,15 +67,12 @@ const Login = () => {
                         <TextField label='Password' placeholder='password' variant='filled' fullWidth required
                                    onChange={handlePasswordChange} type='password'/>
                     </Grid>
-                    <Grid sx={{marginTop: 3}} align='center'>
-                        <Button type='submit' sx={{'&:hover': {boxShadow: "0 0 20px 20px #2196f3"}}} variant='outlined'
+                    <Grid sx={{marginTop: 8}} align='center'>
+                        <Button type='submit' sx={{'&:hover': {boxShadow: "0 0 20px 20px #2196f3"}}} variant='contained'
                                 fullWidth onClick={handleUserLogin}>Sign Up</Button>
                         <Box sx={{marginTop: 2}} fullWidth>Don't have an account? <Link href='/register'
-                                                                                        color='primary.light'
+                                                                                        color='primary.dark'
                                                                                         sx={{marginLeft: 1}}>Register!</Link></Box>
-                        <Button variant="contained" fullWidth sx={{mt: 5}} onClick={() => router.push('/')}>Go back to
-                            main
-                            page</Button>
                     </Grid>
                 </Paper>
             </Grid>
