@@ -4,7 +4,10 @@ import Cookies from "js-cookie";
 import WrongUserData from "../wrong_data";
 import Layout from "../../components/layouts/layout";
 
-import {articles, news} from "../../lib/article_nodb";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import CommentIcon from '@mui/icons-material/Comment';
+
+import {articles} from "../../lib/article_nodb";
 
 const Article = ({title, description, author}) => {
     return (
@@ -31,6 +34,10 @@ const Article = ({title, description, author}) => {
             <Typography variant="body2">
                 Author: {author}
             </Typography>
+            <Box sx={{mt: 2}}>
+                <FavoriteIcon style={{marginRight: 10, fontSize: 30}} />
+                <CommentIcon style={{fontSize: 30}}/>
+            </Box>
         </Box>
     );
 
@@ -41,7 +48,7 @@ const Home = () => {
         return (
             <Layout>
                 <Container sx={{mt: 20, width: '100%', flexGrow: 1}} align='center'>
-                    <Typography variant='h3'>Articles</Typography>
+                    <Typography variant='h3'>Discussions</Typography>
 
                     <Grid container spacing={2}>
                         {articles.map(article => <Article key={article.id} title={article.title}
