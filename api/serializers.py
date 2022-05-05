@@ -27,12 +27,20 @@ class UserSerializer(serializers.ModelSerializer):
 
         return user
 
-    def update(self, instance, validated_data):
-        instance.username = validated_data.get('username', instance.username)
-        instance.email = validated_data.get('email', instance.email)
-        instance.password = validated_data.get('password', instance.password)
 
-        return instance
+class ChangeUserPasswordSerializer(serializers.Serializer):
+    model = User
+
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+    new_re_password = serializers.CharField(required=True)
+
+
+class UpdateUserEmailSerializer(serializers.Serializer):
+    model = User
+
+    new_email = serializers.EmailField(required=True)
+    current_password = serializers.CharField(required=True)
 
 
 class PostSerializer(serializers.ModelSerializer):

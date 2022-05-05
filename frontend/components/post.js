@@ -1,13 +1,22 @@
 import React from "react";
 
-import {Typography, Card, CardHeader, CardMedia, CardContent, Avatar, IconButton} from "@mui/material";
+import {
+    Typography,
+    Card,
+    CardHeader,
+    CardMedia,
+    CardContent,
+    Avatar,
+    IconButton,
+} from "@mui/material";
+
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-
 const Post = ({post}) => {
+
     return (
-        <Card sx={{
-            maxWidth: "30%",
+         <Card sx={{
+             maxWidth: 345,
             flexGrow: 1,
             backgroundColor: 'secondary.dark',
             m: {xl: 2, lg: 3, md: 2, sm: 3, xs: 5},

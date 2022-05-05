@@ -10,5 +10,11 @@ router.register(r'posts', views.PostViewSet, basename="posts")
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('auth-token/', obtain_auth_token)
+    path('auth-token/', obtain_auth_token),
+    path('change_password/', views.ChangeUserPasswordView.as_view(), name='change_password'),
+    path('change_email/', views.UpdateUserEmail.as_view(), name='change_email'),
+
+    # path('user/<id>/', views.UserDetailsViewSet.as_view(), name='user_details'),
+
+    # path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
 ]

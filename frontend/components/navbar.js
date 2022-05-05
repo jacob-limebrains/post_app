@@ -93,10 +93,10 @@ const NavBar = ({toggleOnChange}) => {
                                 }}
                             >
                                 <MenuItem onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">Home</Typography>
+                                    <Typography textAlign="center" onClick={() => router.push('/main')}>Home</Typography>
                                 </MenuItem>
                                 <MenuItem onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">Posts</Typography>
+                                    <Typography textAlign="center" onClick={() => router.push('/main/posts')}>Posts</Typography>
                                 </MenuItem>
                             </Menu>
                         </Box>
