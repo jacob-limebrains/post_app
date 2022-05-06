@@ -18,6 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     lookup_field = 'username'
 
+
 # class UserDetailsViewSet(generics.RetrieveAPIView):
 #     serializer_class = serializers.UserSerializer
 #     permission_classes = [IsAuthenticated, ]
@@ -36,6 +37,9 @@ class ChangeUserPasswordView(generics.UpdateAPIView):
     def get_object(self, queryset=None):
         obj = self.request.user
         return obj
+
+    # def partial_update(self, request, *args, **kwargs):
+    #     super().partial_update()
 
     def update(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -74,18 +78,19 @@ class UpdateUserEmail(generics.UpdateAPIView):
     def update(self, request, *args, **kwargs):
         self.object = self.get_object()
         serializer = self.get_serializer(data=request.data)
+
         if serializer.is_valid():
-            if not self.object.check_password(serializer.data.get("old_password")):
-                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
-            if self.object.email_user(serializer.data.get("old_email")) == self.object.get(self.object.email):
-                return Response({"old_email": ["You can not change your email address on the same address"]},
-                                status=status.HTTP_400_BAD_REQUEST)
-            self.object.email = self.cleaned_data(serializer.data.get("new_email"))
+            if not self.object.check_password(serializer.data.get('current_password')):
+                return Response({'current_password': 'Wrong password!'}, status=status.HTTP_400_BAD_REQUEST)
+            if self.object.email == serializer.data.get('new_email'):
+                return Response({'new_email': 'New email cant be the same!'}, status=status.HTTP_400_BAD_REQUEST)
+            self.object.email = serializer.data.get('new_email')
             self.object.save()
+
             response = {
                 'status': 'success',
                 'code': status.HTTP_200_OK,
-                'message': 'Password updated successfully',
+                'message': 'Email updated successfully',
                 'data': []
             }
 
@@ -97,4 +102,4 @@ class UpdateUserEmail(generics.UpdateAPIView):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = serializers.PostSerializer
-    permission_classes = [AllowAny]
+    permission_classes = (IsAuthenticated,)

@@ -1,7 +1,13 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
+from django.core.validators import EmailValidator
 
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+from rest_framework.validators import UniqueValidator
+
+from taggit.serializers import TaggitSerializer, TagListSerializerField
 
 from .models import Post
 
@@ -14,6 +20,14 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {
             'write_only': True,
             'required': True
+        }, 'email': {
+            'validators': [
+                EmailValidator,
+                UniqueValidator(
+                    queryset=User.objects.all(),
+                    message="This email is already exists!"
+                )
+            ]
         }}
 
     def create(self, validated_data):
@@ -43,7 +57,12 @@ class UpdateUserEmailSerializer(serializers.Serializer):
     current_password = serializers.CharField(required=True)
 
 
-class PostSerializer(serializers.ModelSerializer):
+class PostSerializer(TaggitSerializer, serializers.ModelSerializer):
+
+    tags = TagListSerializerField()
+    author = serializers.CharField(source='author.username')
+    created = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
+
     class Meta:
         model = Post
-        fields = ['id']
+        fields = '__all__'
