@@ -1,5 +1,8 @@
+from datetime import datetime, date
+
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 # from django.dispatch import receiver
 # from django.urls import reverse
@@ -27,11 +30,11 @@ from taggit.managers import TaggableManager
 
 
 class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.ImageField(blank=True, null=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='author', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='posts/%Y/%m/%d')
     title = models.CharField(max_length=50)
     tags = TaggableManager()
-    description = models.TextField()
+    description = models.TextField(max_length=140)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

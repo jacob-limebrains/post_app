@@ -5,6 +5,6 @@ from .models import Post
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_filter = ('author', 'title', 'tags', 'description')
-    list_display = ('title', 'tags', 'description', 'author',)
-    search_fields = ['title', 'tags', 'author']
+    list_filter = ('author', 'title')
+    list_display = ('title', 'description', 'author')
+    search_fields = ['title', 'author']

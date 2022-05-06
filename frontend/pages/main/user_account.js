@@ -12,7 +12,7 @@ import {SERVER_IP} from "../../api/api";
 
 const UserAccount = () => {
 
-    const [email, setEmail] = useState('');
+    const [new_email, setNewEmail] = useState('');
     const [current_Password, setCurrentPassword] = useState('');
     const [new_Password, setNewPassword] = useState('');
     const [re_newPassword, setRe_NewPassword] = useState('');
@@ -56,8 +56,9 @@ const UserAccount = () => {
     }
 
     const handleUpdateUserEmail = () => {
-        axios.put(`${SERVER_IP}/api/users/${Cookies.get('username')}`, {
-                email: email,
+        axios.put(`${SERVER_IP}/api/change_email/`, {
+                new_email: new_email,
+                current_password: current_Password
             },
             {
                 headers: {
@@ -66,9 +67,15 @@ const UserAccount = () => {
                 }
             }
         ).then(response => {
-            alert("Password has been updated " + response.status);
+            alert("Email has been updated " + response.status);
         }).catch(error => {
-            console.log(error.response);
+            const errors = [];
+            for (const [err, value] of Object.entries(error.response.data)) {
+                errors.push(value.toString());
+            }
+            console.log(current_Password)
+            console.log(new_email)
+            alert(errors.join("\n"));
         })
     }
 
@@ -94,7 +101,7 @@ const UserAccount = () => {
                         <TextField label='New Email' placeholder='enter new email' variant='filled'
                                    sx={{width: '60%', mt: 2}}
                                    required
-                                   type='email' onChange={e => setEmail(e.target.value)}/>
+                                   type='email' onChange={e => setNewEmail(e.target.value)}/>
                         <TextField label='Password' placeholder='password' variant='filled' sx={{width: '60%'}}
                                    required
                                    type='password' onChange={e => setCurrentPassword(e.target.value)}/>
